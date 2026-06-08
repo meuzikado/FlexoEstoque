@@ -1,60 +1,61 @@
 package com.Estoque.demo.Controller;
 
 import com.Estoque.demo.Model.Bobina; // Importando o modelo que criamos acima
+import com.Estoque.demo.repository.BobinaRepository; // Importando o repositório que criamos acima
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/bobinas")
 public class BobinaController {
 
-    // Nossa lista simulando o estoque em memória
-    private List<Bobina> estoqueBobinas = new ArrayList<>();
+    @Autowired // O Spring gerencia e injeta o repositório de banco de dados aqui automaticamente
+    private BobinaRepository bobinaRepository;
 
-    // Construtor que já inicia o sistema com duas bobinas de teste
-    public BobinaController() {
-        estoqueBobinas.add(new Bobina(1L, "BOPP Transparente", 400.0, 20.0, 150.5, 5000.0, "LOTE-A20"));
-        estoqueBobinas.add(new Bobina(2L, "Papel Couchê", 600.0, 80.0, 210.0, 3000.0, "LOTE-B80"));
-    }
-
-    // 1. LISTAR TODAS (GET)
+    // 1. LISTAR TODAS (Buscando direto do Banco)
     @GetMapping
     public List<Bobina> listarTodas() {
-        return estoqueBobinas;
+        return bobinaRepository.findAll();
     }
 
-    // 2. CADASTRAR NOVA (POST)
+    // 2. CADASTRAR NOVA (Salvando no Banco)
     @PostMapping
-    public String cadastrar(@RequestBody Bobina novaBobina) {
-        estoqueBobinas.add(novaBobina);
-        return "Bobina de " + novaBobina.getTipoMaterial() + " (Lote: " + novaBobina.getNumeroLote() + ") cadastrada com sucesso!";
+    public Bobina cadastrar(@RequestBody Bobina novaBobina) {
+        // Como o ID é gerado pelo banco, garantimos que comece nulo no insert
+        novaBobina.setId(null); 
+        return bobinaRepository.save(novaBobina);
     }
 
-    // 3. ALTERAR BOBINA (PUT)
+    // 3. ALTERAR BOBINA (Atualizando no Banco)
     @PutMapping("/{id}")
     public String atualizar(@PathVariable Long id, @RequestBody Bobina dadosAtualizados) {
-        for (Bobina b : estoqueBobinas) {
-            if (b.getId().equals(id)) {
-                b.setTipoMaterial(dadosAtualizados.getTipoMaterial());
-                b.setLargura(dadosAtualizados.getLargura());
-                b.setGramatura(dadosAtualizados.getGramatura());
-                b.setPesoAtual(dadosAtualizados.getPesoAtual());
-                b.setMetragemLinear(dadosAtualizados.getMetragemLinear());
-                b.setNumeroLote(dadosAtualizados.getNumeroLote());
-                return "Bobina ID " + id + " atualizada com sucesso!";
-            }
+        Optional<Bobina> bobinaExistente = bobinaRepository.findById(id);
+        
+        if (bobinaExistente.isPresent()) {
+            Bobina bobina = bobinaExistente.get();
+            bobina.setTipoMaterial(dadosAtualizados.getTipoMaterial());
+            bobina.setLargura(dadosAtualizados.getLargura());
+            bobina.setGramatura(dadosAtualizados.getGramatura());
+            bobina.setPesoAtual(dadosAtualizados.getPesoAtual());
+            bobina.setMetragemLinear(dadosAtualizados.getMetragemLinear());
+            bobina.setNumeroLote(dadosAtualizados.getNumeroLote());
+            
+            bobinaRepository.save(bobina); // O .save() atualiza se o ID já existir
+            return "Bobina ID " + id + " atualizada no banco com sucesso!";
         }
+        
         return "Bobina com ID " + id + " não encontrada.";
     }
 
-    // 4. EXCLUIR BOBINA (DELETE)
+    // 4. EXCLUIR BOBINA (Deletando do Banco)
     @DeleteMapping("/{id}")
     public String deletar(@PathVariable Long id) {
-        boolean removeu = estoqueBobinas.removeIf(b -> b.getId().equals(id));
-        if (removeu) {
-            return "Bobina ID " + id + " removida do estoque.";
+        if (bobinaRepository.existsById(id)) {
+            bobinaRepository.deleteById(id);
+            return "Bobina ID " + id + " removida do banco de dados.";
         }
         return "Bobina com ID " + id + " não encontrada.";
     }

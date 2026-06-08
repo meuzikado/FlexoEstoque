@@ -1,12 +1,31 @@
 package com.Estoque.demo.Model;
 
+import jakarta.persistence. *;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+
+@Entity // Diz que essa classe é uma tabela do banco de dados
+@Table(name = "tb_bobina") // Define o nome da tabela no banco
 public class Bobina {
+    
+    @Id // Define que o ID será a Chave Primária (Primary Key)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // O banco vai gerar o ID automaticamente (1, 2, 3...)
     private Long id;
-    private String tipoMaterial;   // Ex: BOPP Transparente, PEBD, Couchê
-    private double largura;        // Em milímetros (ex: 400.0)
-    private double gramatura;      // Em micras ou g/m²
-    private double pesoAtual;      // Em KG (crucial para o controle de saldo)
-    private double metragemLinear; // Em metros
+
+    @Column(name = "tipo_material", nullable = false) // Customiza a coluna no banco
+    private String tipoMaterial;
+
+    private double largura;
+    private double gramatura;
+    
+    @Column(name = "peso_atual")
+    private double pesoAtual;
+    
+    @Column(name = "metragem_linear")
+    private double metragemLinear;
+    
+    @Column(name = "numero_lote")
     private String numeroLote;
 
     // Construtor sem argumentos (necessário para o Spring converter o JSON)
