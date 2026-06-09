@@ -31,3 +31,12 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Ignorar arquivos de configuração local com senhas
+/src/main/resources/application.properties
+
+# Ignorar arquivos pesados de compilação da IDE e do Maven
+target/
+.idea/
+.vscode/
+*.iml
