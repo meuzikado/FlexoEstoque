@@ -11,32 +11,51 @@ Regra: escreva com minhas palavras. Se não consegue explicar, ainda não aprend
 Conceito |	Explicação em 1 frase (minhas palavras) |	Onde aparece no projeto	| Data
 @transactional | Se uma transação da erro é feito Rollback(desfaz a transação), caso não tenha erro temos o commit (envio) a transação completa sem dados quebrados - BobinaService.java - 03/11/26
 
+@RequestBody Pega o JSON enviado pelo cliente e converte dentro da classe JAVA. No caso que usamos foi a Entidade BOBINAS. - Aparece em BOBINACONTROLLER - 06/11/26
 
 ---
 
-## data · Ticket: ·
+## 06/11/26 · FLX-01 ·
 
 ### O que eu fiz hoje
+Hoje fizemos a primeira Requisição HTTP: 
+Usamos o Verbo POST para criar a primeira bobina e o Verbo GET para acessar a bobina dentro do banco.
 
 ### O que eu aprendi
-@transactional - Basicamente faz com que uma transação só seja concluida se nenhuma der erro, caso tenha erro durante a transação é feito rollback desfazendo tudo que foi feito. Ex: Iniciar uma maquina de impressão, se eu colo o clichê 1, colo o 2, mas o 3 está errado tudo que ja foi feito é desfeito e nenhuma transação é concluída, só é commitado se todas opereções em ordem 1,2,3 etc estiverem todas sem erro.
+@RequestBody Pega o JSON enviado pelo cliente e converte em um objeto da classe JAVA. No caso que usamos foi a Entidade BOBINAS. ex: O vendedor quando recebe o pedido do cliente e transforma aquele pedido em uma OS.
+
+A Diferença entre os STATUS HTTP 200 que é quando temos sucesso numa operação e o STATUS 201 created que é quando criamos algo.
+
+JSON x CAMPOS JAVA. O nome do java é o que usamos para criar as bobinas no postman as anotações são as colunas que vão aparecer no banco de dados.
 
 ### Onde travei
 <!-- O problema, o erro (cole a linha do "Caused by" se houver) e o meu primeiro chute da causa. -->
-- **Problema:**
-- **Erro / mensagem:**
-- **Meu chute:**
+- **Problema: quando cadastrei uma bobina deu certo mais quando reiniciei o servidor as bobinas sumiram
+- **Erro / mensagem: []
+- **Meu chute: O json está enviando resposta vazia apos o banco ser desligado, como o banco é em memoria quando é desligado perdemos tudo que foi feito.
 
 ### Como resolvi
-<!-- O que realmente era e o que eu fiz. Se ainda não resolvi, escreva "em aberto". -->
--
+a solução para esse problema por hora foi descobrir a causa e o motivo dos dados sumirem. 
 
 ### Perguntas em aberto
-<!-- Dúvidas para levar ao mentor na próxima sessão. -->
+Porque quando criamos uma bobina usando o Verbo post o Status recebido foi 200 OK ao inves de 201 created?
 -
 
 ### Próximo passo
--
+Para fechar o FLX-01 (cerca de 30 minutos)
+
+Desenhar o mapa de camadas no papel (as 4 linhas que temos) e fotografar.
+Ajustar "Como resolvi" de hoje: escrever a causa real (H2 por autoconfiguração) e as duas provas (o log e o dependency:tree).
+Responder por escrito, em 2 ou 3 frases cada, as perguntas-guia que sobraram: a FK e a regra de excluir bobina (hoje × deveria).
+Pendências para não esquecer
+
+Pergunta em aberto: por que o POST devolveu 200 e não 201? (já está anotada)
+Pergunta em aberto: o escopo compile do H2 é bom ou ruim?
+Observação sem correção: BobinaController vai direto ao Repository, e o POST não bloqueia bobina duplicada.
+Depois, o FLX-02 (a partir daqui, é outro ticket)
+
+Antes de olhar o banco, escrever à mão o CREATE TABLE que você acha que o Hibernate gera para Bobina. Só isso para começar.
+
 
 <!-- ===== FIM DO MODELO ===== -->
 
