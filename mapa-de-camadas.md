@@ -1,12 +1,12 @@
 Cliente (Postman)
    │
    ▼
-Controller:  BobinaController ──────────▶ BobinaRepository
-             MovimentacaoController ────▶ bobinaService
-             RelatorioController ───────▶ bobinaService
+Controller:  BobinaController ──────────▶ BobinaRepository (é o unico que não passa pelo service porque vai direto ao bobinaRepository. Isso significa que cadastras, alterar ou excluir hoje não passa por nenhuma regra de negocio)
+             MovimentacaoController ────▶ BobinaService
+             RelatorioController ───────▶ BobinaService
    │
    ▼
-Service:     BobinaService ─────────────▶ bobinaRepository e movimentacaoRepository ?
+Service:     BobinaService ─────────────▶ BobinaRepository e MovimentacaoRepository 
    │
    ▼
 Repository:  BobinaRepository, MovimentacaoRepository
