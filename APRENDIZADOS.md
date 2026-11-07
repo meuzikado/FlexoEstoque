@@ -14,13 +14,19 @@ Conceito |	Explicação em 1 frase (minhas palavras) |	Onde aparece no projeto	|
 @RequestBody Pega o JSON enviado pelo cliente e converte dentro da classe JAVA. No caso que usamos foi a Entidade BOBINAS. - Aparece em BOBINACONTROLLER - 06/11/26
 
 ---
-## 07/11/26 · FLX-01 ·
+## 07/11/26 · FLX-01 / FLX-02·
 
 ### O que eu fiz hoje
 Hoje criamos o application.properties com endereço, usuario, senha. Configuramos de fato o banco e agora o spring usa as configurações do application.properties.
 
+Cadastrei 3 bobinas e fiz 4 retiradas ligadas a OS's diferentes.
+
 ### O que eu aprendi
 O hibernate faz a criação do dados dentro do banco, criação de tabelas, inserção de bobinas, criação das chaves estrangeiras. como ja deixamos o JPA todo especificado no projeto com as anotações (@) o hibernate já sabia o que usar e fazer.
+
+Fiz mais de uma retirada na BOBINA_ID (Chave estrangeira que liga a entidade bobina) 1 e deu tudo certo, A função de atualizar metragem linear da bobina está funcionando corretamente e a chave estrangeira está funcionando perfeitamente.
+
+A quantidade de bobinas utilizadas continuou sendo 1 quando fiz mais de uma retirada em uma bobina, se o relatorio final do dia for fazer a soma de quantas bobinas foram utilizadas ele vai dizer que foi 2 ao invés de uma, anotado para corrigir na semana 2.
 
 ### Onde travei
 
@@ -37,7 +43,7 @@ hoje quando fazemos uma retirada parcial numa bobina conta como uma retirada com
 -
 
 ### Próximo passo
-Cadastrar 3 bobinas de matériais diferentes e fazer 4 retiradas usando mais de uma OS. Fazer consultas usando o console para saber: total de metros retirados, total de metros retirados por tipo de material e saber quais bobinas tem menos de 1000m e salvar as 3 consultas em docs/queries.sql
+Fazer as consultas 2 (total de metros por tipo de material, com JOIN) e 3 (bobinas com menos de 1000 m) e salvar em docs/queries.sql.
 
 <!-- ===== FIM DO MODELO ===== -->
 ## 06/11/26 · FLX-01 ·
