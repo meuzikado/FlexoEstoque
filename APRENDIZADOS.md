@@ -14,7 +14,32 @@ Conceito |	Explicação em 1 frase (minhas palavras) |	Onde aparece no projeto	|
 @RequestBody Pega o JSON enviado pelo cliente e converte dentro da classe JAVA. No caso que usamos foi a Entidade BOBINAS. - Aparece em BOBINACONTROLLER - 06/11/26
 
 ---
+## 07/11/26 · FLX-01 ·
 
+### O que eu fiz hoje
+Hoje criamos o application.properties com endereço, usuario, senha. Configuramos de fato o banco e agora o spring usa as configurações do application.properties.
+
+### O que eu aprendi
+O hibernate faz a criação do dados dentro do banco, criação de tabelas, inserção de bobinas, criação das chaves estrangeiras. como ja deixamos o JPA todo especificado no projeto com as anotações (@) o hibernate já sabia o que usar e fazer.
+
+### Onde travei
+
+- **Problema:Conectar ao banco
+- **Erro / mensagem: não lembro
+- **Meu chute: ...
+
+### Como resolvi
+Vi que o nome do banco estava diferente do que coloquei no application.properties, fiz a troca e depois conectou normal.
+### Perguntas em aberto
+o peso_atual na tabela tb_bobina está como double o que está ocasionando num numero muito grande quando é feito o calculo depois da retirada de uma bobina.
+
+hoje quando fazemos uma retirada parcial numa bobina conta como uma retirada completa e isso da erro. ex: uma bobina de 2000m é retirada 400m sobre 1600m mas para o sistema foi utilizada uma bobina completa. quantidadeBobinasUtilizadas conta a bobina toda e isso não está certo.
+-
+
+### Próximo passo
+Cadastrar 3 bobinas de matériais diferentes e fazer 4 retiradas usando mais de uma OS. Fazer consultas usando o console para saber: total de metros retirados, total de metros retirados por tipo de material e saber quais bobinas tem menos de 1000m e salvar as 3 consultas em docs/queries.sql
+
+<!-- ===== FIM DO MODELO ===== -->
 ## 06/11/26 · FLX-01 ·
 
 ### O que eu fiz hoje
