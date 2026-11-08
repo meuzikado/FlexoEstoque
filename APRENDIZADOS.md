@@ -13,6 +13,35 @@ Conceito |	Explicação em 1 frase (minhas palavras) |	Onde aparece no projeto	|
 
 @RequestBody Pega o JSON enviado pelo cliente e converte dentro da classe JAVA. No caso que usamos foi a Entidade BOBINAS. - Aparece em BOBINACONTROLLER - 06/11/26
 
+## 08/11/26 · FLX-02·
+
+### O que eu fiz hoje
+Hoje fizemos consultas dentro do banco. Total de metros retirados por tipo de material, quantidade de retiradas por material e media de metros por material. Consultas especificas para deixar o aprendizado sólido.
+
+### O que eu aprendi
+Hoje ligamos duas tabelas pela chave estrangeira usando JOIN, agrupamento de dados usando GROUP BY, SUM para somar valores, COUNT para contar linhas e AVG para media de retirada. Usamo o WHERE para filtar as bobinas com menos de 1000M. Como fizemos o filtro com menos de 1000 as bobinas de 1000 não entrariam no calculo, caso quisessemos usar seria <= para também atribuir ao calculo
+
+o CREATE TABLE cria somente a tabela e os campos vazios para receber o insert. O hibernate cria a tabela com os campos e recebe cada requisição do json fazendo inserções com os dados.
+
+o proprio hibernate decidiu os tipos de dados da aplicação. Largura que era double virou float(53) not null, o numero do lote era string e virou varchar(255) com até 255 carecteres
+
+### Onde travei
+
+- **Problema: Criar consultas no banco
+- **Erro / mensagem:não tivemos
+- **Meu chute:...
+
+### Como resolvi
+
+Usei o guia de SQL para criar os comandos certos para as consultas.
+
+### Perguntas em aberto
+Metragem_linear e peso_atual não tem not null, então no momento estão aceitando metragem vazia o que não pode acontecer e o numero do lote não é unique então as pessoas conseguem usar o mesmo lote 2 vezes.
+
+### Próximo passo
+iniciar o FLX-03.
+
+<!-- ===== FIM DO MODELO ===== -->
 ---
 ## 07/11/26 · FLX-01 / FLX-02·
 
