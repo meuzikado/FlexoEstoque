@@ -7,11 +7,54 @@ Regra: escreva com minhas palavras. Se não consegue explicar, ainda não aprend
 
 ## Índice de conceitos
 <!-- Atualize sempre que aprender um conceito novo. Vira sua cola para entrevista. -->
+DEBUG - Serve para encontrar, diagnosticar e solucionar problemas.
 
-Conceito |	Explicação em 1 frase (minhas palavras) |	Onde aparece no projeto	| Data
-@transactional | Se uma transação da erro é feito Rollback(desfaz a transação), caso não tenha erro temos o commit (envio) a transação completa sem dados quebrados - BobinaService.java - 03/11/26
+BREAKPOINT - Serve para marca um ponto onde queremos que o projeto pare para vermos o funcionamento por etapas(debug).
 
-@RequestBody Pega o JSON enviado pelo cliente e converte dentro da classe JAVA. No caso que usamos foi a Entidade BOBINAS. - Aparece em BOBINACONTROLLER - 06/11/26
+## 10/11/26 · FLX-03·
+
+### O que eu fiz hoje
+Rodei pela primeira vez o projeto em modo DEBUG. 
+
+### O que eu aprendi
+O Debug serve para ver o projeto rodando em etapas especificas (BREAKPOINT), solucionar bugs, erros e diagnosticar problemas.
+
+Breakpoint é uma marcação de qual etapa queremos que o projeto pare para vermos o funcionamento por etapa. na linha que queremos que o projeto pare para diagnosticarmos o problema. tem um botão vermelho ao lado do numero da linha (Breakpoint). 
+
+COMANDOS: F5 - Executa o projeto até o proximo breakpoint ou até o fim. F10 - executa a linha atual sem entrar no metodos que ela chama. F11 - entra no metodo chamado da linha atual.
+
+Vi os dado do JSON chegando ao service, a conferencia das bobinas, as regras de negocio funcionando uma por uma.
+
+O CAMINHO DE UMA RETIRADA EM 10 Passos.
+
+1 - O postman envia uma requisição POST para o endereço. API/MOVIMENTACOES/RETIRAR 
+2 - o spring sabe o metodo que atende a URL pela Rota descrita no controller com as anotações requestmapping (api/movimentacoes) e postmapping(/retirar).
+3 - o JACKSON transforma o json em objeto java.
+4 - o controller passa para o service o dados que chegaram
+5 - o service pergunta ao banco se temos a bobina em estoque
+6 - verifica se o saldo existe
+7 - atualiza o saldo e a quantidade de bobinas utilizadas.
+8 - se todos os dados estiverem batendo é salva as alterações feitas na bobina e a ficha de movimentação. 
+9 - ele devolve a ficha de movimentação com a bobina alterada e com status 200.
+10 - o JACKSON transforma esses objetos em json novamente.
+### Onde travei
+
+- **Problema: atalhos pararam de funcionar
+- **Erro / mensagem: não pegava nenhuma tecla de atalho
+- **Meu chute: Quando apertei f5 o projeto rodou sem debugar e por isso não estava conseguindo usar as teclas de atalho.
+
+### Como resolvi
+Rodei em modo DEBUG novamente e usei as teclas de atalho normalmente.
+
+
+### Perguntas em aberto
+
+
+### Próximo passo
+Terminar o FLX-03: testar 5 requisições erradas no Postman e anotar o resultado de cada uma.
+
+<!-- ===== FIM DO MODELO ===== -->
+---
 
 ## 08/11/26 · FLX-02·
 
